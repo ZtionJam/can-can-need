@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "can-can-need",
-    "version": "0.0.0"
+    "productName": "看看你的",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -19,9 +19,10 @@
     },
     "windows": [
       {
-        "title": "can-can-need",
-        "width": 800,
-        "height": 600
+        "title": "看看你的",
+        "width": 1000,
+        "height": 600,
+        "resizable": false
       }
     ],
     "security": {
@@ -37,7 +38,12 @@
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ]
+      ],
+      "windows": {
+        "wix": {
+          "language": "zh-CN"
+        }
+      }
     }
   }
 }
