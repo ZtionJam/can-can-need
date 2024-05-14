@@ -69,7 +69,6 @@ function handleClick(index1, index2, key) {
   active.value.index1 = index1;
   active.value.index2 = index2;
   active.value.key = key;
-  console.log(active.value);
 }
 </script>
 
