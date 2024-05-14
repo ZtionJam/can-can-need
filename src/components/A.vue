@@ -180,7 +180,7 @@ input[readonly] {
     text-align: center;
     font-size: 15px;
     color: #fff;
-    background: rgb(117, 190, 255);
+    background: rgb(60, 164, 255);
     border-radius: 10px;
   }
 }
