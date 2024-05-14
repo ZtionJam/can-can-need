@@ -2,7 +2,10 @@
   <div class="main" @click="active = {}">
     <div class="log-box">
       <div class="title">日志</div>
-      <div class="log-item" v-for="item in 20">日志信息啊是的啊是的阿萨德撒的</div>
+      <div class="log-item" v-for="item in 20">
+        <img src="" alt="CanCanNeed" />
+        <div class="text">日志信息萨达啊是的啊是的啊大大阿萨德撒多sadS啊大萨达萨达撒多</div>
+      </div>
     </div>
     <div class="set-box">
       <div class="set-item" v-for="(item, index) in settingList" :key="index">
@@ -114,9 +117,25 @@ input[readonly] {
       top: 0px;
     }
     .log-item {
-      font-size: 13px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
       margin-bottom: 5px;
-      color: #666666;
+      width: 100%;
+      border: 0.5px solid #cccccc;
+      border-radius: 10px;
+      box-shadow: 5px 5px 8px 0 #666666;
+      img {
+        width: 150px;
+        height: 150px;
+        margin-right: 10px;
+      }
+      .text {
+        flex: 1;
+        font-size: 13px;
+        margin-bottom: 5px;
+        color: #666666;
+      }
     }
   }
 }
