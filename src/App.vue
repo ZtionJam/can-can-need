@@ -1,11 +1,12 @@
 <script setup>
+import  A from "./components/A.vue";
 
 </script>
 
 <template>
-  <div class="container">
-    <h1>Welcome to Can Can need</h1>
-  </div>
+ 
+   <A/>
+
 </template>
 
 <style scoped>
