@@ -81,6 +81,7 @@ function handleClick(index1, index2, key) {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  -webkit-user-drag: none;
 }
 input {
   background: #f9f9f988;
