@@ -2,9 +2,9 @@
   <div class="main" @click="active = {}">
     <div class="log-box">
       <div class="title">日志</div>
-      <div class="log-item" v-for="item in 20">
-        <img src="" alt="CanCanNeed" />
-        <div class="text">日志信息萨达啊是的啊是的啊大大阿萨德撒多sadS啊大萨达萨达撒多</div>
+      <div class="log-item" v-for="item in logList">
+        <img :src="item.image" alt="CanCanNeed" />
+        <div class="text">{{ item.content }}</div>
       </div>
     </div>
     <div class="set-box">
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+const logList = ref([{ image: "https://img2.baidu.com/it/u=2778168081,4108854712&fm=253&fmt=auto&app=138&f=JPEG?w=335&h=245", content: "日志信息啊是的啊是的萨达" }]);
 const settingList = ref({
   one: [
     {
@@ -132,7 +133,7 @@ input[readonly] {
       }
       .text {
         flex: 1;
-        font-size: 13px;
+        font-size: 15px;
         margin-bottom: 5px;
         color: #666666;
       }
