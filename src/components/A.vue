@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" @click="active = {}">
     <div class="log-box">
       <div class="title">日志</div>
       <div class="log-item" v-for="item in 20">日志信息啊是的啊是的阿萨德撒的</div>
@@ -9,11 +9,11 @@
         <div class="label">当出现【{{ index == "one" ? "1" : index == "two" ? "2" : "3" }}】个人时：</div>
         <div class="item-row" v-for="(item2, index2) in item" :key="index2">
           <div class="row-label">触发按键：</div>
-          <input maxlength="1" v-model="item2.key1" />
+          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key1' }" readonly maxlength="1" v-model="item2.key1.label" @click.stop="handleClick(index, index2, 'key1')" @keydown="(e) => handleInput(e, item2, 'key1')" />
           <div class="row-gap">+</div>
-          <input maxlength="1" v-model="item2.key2" />
+          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key2' }" readonly maxlength="1" v-model="item2.key2.label" @click.stop="handleClick(index, index2, 'key2')" @keydown="(e) => handleInput(e, item2, 'key2')" />
           <div class="row-gap">+</div>
-          <input maxlength="1" v-model="item2.key3" />
+          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key3' }" readonly maxlength="1" v-model="item2.key3.label" @click.stop="handleClick(index, index2, 'key3')" @keydown="(e) => handleInput(e, item2, 'key3')" />
           <div class="plus" @click="addItem(index)">+</div>
         </div>
       </div>
@@ -28,36 +28,48 @@
 const settingList = ref({
   one: [
     {
-      key1: "",
-      key2: "",
-      key3: "",
+      key1: {},
+      key2: {},
+      key3: {},
     },
   ],
   two: [
     {
-      key1: "",
-      key2: "",
-      key3: "",
+      key1: {},
+      key2: {},
+      key3: {},
     },
   ],
   three: [
     {
-      key1: "",
-      key2: "",
-      key3: "",
+      key1: {},
+      key2: {},
+      key3: {},
     },
   ],
 });
 
+const active = ref({});
+
 function addItem(index) {
   settingList.value[index].push({
-    key1: "",
-    key2: "",
-    key3: "",
+    key1: {},
+    key2: {},
+    key3: {},
   });
 }
 function save() {
   console.log(settingList.value);
+}
+function handleInput(e, item, key) {
+  item[key].label = e.key;
+  item[key].value = e.keyCode;
+}
+function handleClick(index1, index2, key) {
+  active.value.index1 = index1;
+  active.value.index2 = index2;
+  active.value.key = key;
+  console.log(active.value);
 }
 </script>
 
@@ -66,6 +78,13 @@ function save() {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+input {
+  background: #f9f9f988;
+  border: 1px solid #eeeeee;
+}
+input[readonly] {
+  cursor: text;
 }
 </style>
 
@@ -114,7 +133,7 @@ function save() {
     flex: 33%;
     flex-grow: unset;
     .label {
-      font-size: 17px;
+      font-size: 16px;
       color: #999;
       font-weight: bold;
     }
@@ -124,15 +143,15 @@ function save() {
       align-items: center;
       margin-top: 10px;
       .row-label {
-        font-size: 15px;
+        font-size: 13px;
         font-weight: bold;
         color: #333;
       }
       input {
-        width: 18%;
+        width: 23%;
       }
       .row-gap {
-        margin: 0 3%;
+        margin: 0 1%;
       }
       .plus {
         border-radius: 50%;
@@ -165,5 +184,9 @@ function save() {
     background: rgb(117, 190, 255);
     border-radius: 10px;
   }
+}
+.custom {
+  background: #fff !important;
+  border: 1px solid #333;
 }
 </style>
