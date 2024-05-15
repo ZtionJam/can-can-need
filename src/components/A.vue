@@ -2,24 +2,18 @@
   <div class="main" @click="active = {}">
     <div class="log-box">
       <div class="title">实况</div>
-      <img :src="img_now" alt="CanCanNeed"/>
+      <img :src="img_now" alt="CanCanNeed" />
     </div>
     <div class="set-box">
       <div class="set-item" v-for="(item, index) in settingList" :key="index">
         <div class="label">当出现【{{ index == "one" ? "1" : index == "two" ? "2" : "3" }}】个人时：</div>
         <div class="item-row" v-for="(item2, index2) in item" :key="index2">
-          <div class="row-label">触发按键：</div>
-          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key1' }" readonly
-                 maxlength="1" v-model="item2.key1.label" @click.stop="handleClick(index, index2, 'key1')"
-                 @keydown="(e) => handleInput(e, item2, 'key1')"/>
-          <div class="row-gap">+</div>
-          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key2' }" readonly
-                 maxlength="1" v-model="item2.key2.label" @click.stop="handleClick(index, index2, 'key2')"
-                 @keydown="(e) => handleInput(e, item2, 'key2')"/>
-          <div class="row-gap">+</div>
-          <input :class="{ custom: active.index1 == index && active.index2 == index2 && active.key == 'key3' }" readonly
-                 maxlength="1" v-model="item2.key3.label" @click.stop="handleClick(index, index2, 'key3')"
-                 @keydown="(e) => handleInput(e, item2, 'key3')"/>
+          <div class="row-label">操作应用</div>
+          <span class="tip">应用名:</span><input v-model="item2.name" /> <span class="tip">操作:</span
+          ><select v-model="item2.type">
+            <option value="0">关闭</option>
+            <option value="1">最小化</option>
+          </select>
           <div class="plus" @click="addItem(index)">+</div>
         </div>
       </div>
@@ -32,64 +26,31 @@
 </template>
 
 <script setup>
-import {invoke} from "@tauri-apps/api";
-import {listen} from "@tauri-apps/api/event";
+import { invoke } from "@tauri-apps/api";
+import { listen } from "@tauri-apps/api/event";
 
-const img_now = ref("https://img2.baidu.com/it/u=2778168081,4108854712&fm=253&fmt=auto&app=138&f=JPEG?w=335&h=245")
+const img_now = ref("https://img2.baidu.com/it/u=2778168081,4108854712&fm=253&fmt=auto&app=138&f=JPEG?w=335&h=245");
 const settingList = ref({
-  one: [
-    {
-      key1: {},
-      key2: {},
-      key3: {},
-    },
-  ],
-  two: [
-    {
-      key1: {},
-      key2: {},
-      key3: {},
-    },
-  ],
-  three: [
-    {
-      key1: {},
-      key2: {},
-      key3: {},
-    },
-  ],
+  one: [{}],
+  two: [{}],
+  three: [{}],
 });
 
 const active = ref({});
 const openCam = () => {
   invoke("link_start");
-}
+};
 
-listen('update_img', event => {
-  img_now.value="data:image/png;base64,"+event.payload;
+listen("update_img", (event) => {
+  img_now.value = "data:image/png;base64," + event.payload;
 });
 
 function addItem(index) {
-  settingList.value[index].push({
-    key1: {},
-    key2: {},
-    key3: {},
-  });
+  settingList.value[index].push({});
 }
 
 function save() {
   console.log(settingList.value);
-}
-
-function handleInput(e, item, key) {
-  item[key].label = e.key;
-  item[key].value = e.keyCode;
-}
-
-function handleClick(index1, index2, key) {
-  active.value.index1 = index1;
-  active.value.index2 = index2;
-  active.value.key = key;
 }
 </script>
 
@@ -102,8 +63,15 @@ function handleClick(index1, index2, key) {
 }
 
 input {
-  background: #f9f9f988;
-  border: 1px solid #eeeeee;
+  background: #fff;
+  border: 1px solid #b2b2b2;
+  border-radius: 0;
+  font-size: 13px;
+}
+.tip {
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 5px;
 }
 
 input[readonly] {
@@ -136,7 +104,6 @@ input[readonly] {
       top: 0px;
     }
 
-
     img {
       margin-right: 10px;
       border: 1px solid red;
@@ -149,7 +116,6 @@ input[readonly] {
       margin-bottom: 5px;
       color: #666666;
     }
-
   }
 }
 
@@ -164,9 +130,8 @@ input[readonly] {
     border-radius: 10px;
     padding: 5px 10px;
     border: 1px solid #66666650;
-    flex: 33%;
+
     min-height: 100px;
-    flex-grow: unset;
 
     .label {
       font-size: 16px;
@@ -187,7 +152,7 @@ input[readonly] {
       }
 
       input {
-        width: 23%;
+        width: 200px;
       }
 
       .row-gap {
