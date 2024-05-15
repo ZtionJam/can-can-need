@@ -9,8 +9,8 @@
         <div class="label">当出现【{{ index == "one" ? "1" : index == "two" ? "2" : "3" }}】个人时：</div>
         <div class="item-row" v-for="(item2, index2) in item" :key="index2">
           <div class="row-label">操作应用</div>
-          <span class="tip">应用名:</span><input v-model="item2.name" /> <span class="tip">操作:</span
-          ><select v-model="item2.type">
+          <span class="tip">应用名:</span><input v-model="item2.window_name" /> <span class="tip">操作:</span><select
+            v-model="item2.oparetion">
             <option value="0">关闭</option>
             <option value="1">最小化</option>
           </select>
@@ -30,9 +30,18 @@ import { listen } from "@tauri-apps/api/event";
 
 const img_now = ref("https://img2.baidu.com/it/u=2778168081,4108854712&fm=253&fmt=auto&app=138&f=JPEG?w=335&h=245");
 const settingList = ref({
-  one: [{}],
-  two: [{}],
-  three: [{}],
+  one: [{
+    window_name: "",
+    oparetion: ""
+  }],
+  two: [{
+    window_name: "",
+    oparetion: ""
+  }],
+  three: [{
+    window_name: "",
+    oparetion: ""
+  }],
 });
 
 const active = ref({});
@@ -42,11 +51,25 @@ listen("update_img", (event) => {
 });
 
 function addItem(index) {
-  settingList.value[index].push({});
+  settingList.value[index].push({
+    window_name: "",
+    oparetion: ""
+  });
 }
 
 function save() {
-  console.log(settingList.value);
+  let config = JSON.stringify(settingList.value);
+  config=JSON.parse(config)
+  console.log({config:{
+    ...config
+  }})
+  invoke("set_config", {config:{
+    ...config
+  }}).then(r => {
+    console.log(r)
+  }).catch(e => {
+    console.log(e)
+  })
 }
 </script>
 
@@ -64,6 +87,7 @@ input {
   border-radius: 0;
   font-size: 13px;
 }
+
 .tip {
   font-size: 12px;
   margin-left: 10px;
