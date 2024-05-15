@@ -20,7 +20,6 @@
     </div>
     <div class="btn-box">
       <div class="btn" @click="save">保存</div>
-      <div class="btn" @click="openCam">实况</div>
     </div>
   </div>
 </template>
@@ -37,9 +36,6 @@ const settingList = ref({
 });
 
 const active = ref({});
-const openCam = () => {
-  invoke("link_start");
-};
 
 listen("update_img", (event) => {
   img_now.value = "data:image/png;base64," + event.payload;

@@ -26,7 +26,6 @@ pub fn link_start(window: &Window) {
             face_cascade.detect_multi_scale(&gray, &mut faces, 1.3, 5, 0, core::Size::new(0, 0), core::Size::new(0, 0)).unwrap();
 
             for face in &faces {
-                println!("宽度{}", face.width);
                 let rect = Rect::new(face.x, face.y, face.x + face.width, face.y + face.height);
                 imgproc::rectangle(&mut frame, rect, core::Scalar::new(255.0, 0.0, 0.0, 0.0), 2, 8, 0).unwrap();
             }
