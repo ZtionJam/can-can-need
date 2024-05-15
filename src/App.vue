@@ -18,12 +18,12 @@ window.onload = function() {
 
 </template>
 
-<style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
+<style>
+*{
+  padding: 0;
+  margin: 0;
 }
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
+::-webkit-scrollbar {
+  width: 0;
 }
 </style>
